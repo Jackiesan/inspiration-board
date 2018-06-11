@@ -16,13 +16,27 @@ class Board extends Component {
     };
   }
 
+  componentDidMount = () => {
+    axios.get('https://inspiration-board.herokuapp.com/boards/jackie/cards')
+    .then( (response) => {
+      console.log(response);
+      this.setState({ cards: response.data });
+    })
+    .catch( (error) => {
+      this.setState({ error: error.message });
+    });
+  }
+
   renderCardList = () => {
-    const cardList = CARD_DATA.cards.map((card, index) => {
+    // For data from json file
+    // const cardList = CARD_DATA.cards.map((card, index) => {
+    // For data from api
+    const cardList = this.state.cards.map((card, index) => {
       return (
         <Card
           key={index}
-          text={card.text}
-          emoji={card.emoji}
+          text={card.card.text}
+          emoji={card.card.emoji}
         />
       )
     });
@@ -32,6 +46,8 @@ class Board extends Component {
   render() {
     return (
       <div className="board">
+        <p>{this.state.error}</p>
+
         {this.renderCardList()}
       </div>
     )
