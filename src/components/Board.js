@@ -62,7 +62,6 @@ class Board extends Component {
     return (
       <div className="board">
         <p>{this.state.error}</p>
-
         {this.renderCardList()}
       </div>
     )
