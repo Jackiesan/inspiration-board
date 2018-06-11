@@ -11,10 +11,17 @@ class Card extends Component {
       return (emoji.getUnicode(this.props.emoji));
     }
   }
+
+  deleteCard = (event) => {
+    event.preventDefault();
+    console.log(this.props.id);
+    this.props.removeCard(this.props.id)
+  }
+
   render() {
     return (
       <div className="card">
-        <div className='card__delete' >X</div>
+        <div onClick={this.deleteCard} className='card__delete'>X</div>
         <article className="card__content">
           <p className="card__content-text">
             {this.props.text}

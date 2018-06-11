@@ -27,6 +27,19 @@ class Board extends Component {
     });
   }
 
+  removeCard = (id) => {
+    // const cardList = this.state.cards;
+    console.log(`https://inspiration-board.herokuapp.com/boards/jackie/cards/${id}`);
+    axios.delete(`https://inspiration-board.herokuapp.com/boards/jackie/cards/${id}`)
+    .then((response) => {
+      console.log(response);
+      window.location.reload();
+    })
+    .catch( (error) => {
+      this.setState({ error: error.message });
+    });
+  }
+
   renderCardList = () => {
     // For data from json file
     // const cardList = CARD_DATA.cards.map((card, index) => {
@@ -35,8 +48,10 @@ class Board extends Component {
       return (
         <Card
           key={index}
+          id={card.card.id}
           text={card.card.text}
           emoji={card.card.emoji}
+          removeCard={this.removeCard}
         />
       )
     });
