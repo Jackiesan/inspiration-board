@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import App from './App';
 
 describe('App', () => {
@@ -10,5 +10,10 @@ describe('App', () => {
   //   ReactDOM.render(<App />, div);
   //   ReactDOM.unmountComponentAtNode(div);
   // });
+
+  test('that it renders App with shallow rendering', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper).toMatchSnapshot();
+  })
 
 });
