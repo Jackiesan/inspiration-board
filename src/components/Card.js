@@ -14,8 +14,7 @@ class Card extends Component {
 
   deleteCard = (event) => {
     event.preventDefault();
-    console.log(this.props.id);
-    this.props.removeCard(this.props.id)
+    this.props.removeCard(this.props.id, this.props.index)
   }
 
   render() {
