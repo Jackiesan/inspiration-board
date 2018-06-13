@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
@@ -19,9 +18,18 @@ class Board extends Component {
   }
 
   componentDidMount = () => {
-    axios.get('https://inspiration-board.herokuapp.com/boards/jackie/cards')
+    axios.get(`${this.props.url}${this.props.boardName}/cards`)
     .then( (response) => {
-      console.log(response);
+      this.setState({ cards: response.data });
+    })
+    .catch( (error) => {
+      this.setState({ error: error.message });
+    });
+  }
+
+  componentDidUpdate = () => {
+    axios.get(`${this.props.url}${this.props.boardName}/cards`)
+    .then( (response) => {
       this.setState({ cards: response.data });
     })
     .catch( (error) => {
@@ -31,8 +39,7 @@ class Board extends Component {
 
   removeCard = (id, index) => {
     const cardList = this.state.cards;
-
-    axios.delete(`https://inspiration-board.herokuapp.com/boards/jackie/cards/${id}`)
+    axios.delete(`${this.props.url}${this.props.boardName}/cards/${id}`)
     .then((response) => {
       console.log(response);
       cardList.splice(index, 1);
@@ -48,7 +55,7 @@ class Board extends Component {
 
   addCard = (card) => {
     const cardList = this.state.cards;
-    axios.post(`https://inspiration-board.herokuapp.com/boards/jackie/cards/`, card)
+    axios.post(`${this.props.url}${this.props.boardName}/cards/`, card)
     .then((response) => {
       const newCard = { card: response.data.card }
       cardList.unshift(newCard);
