@@ -14,21 +14,26 @@ class NewCardForm extends Component {
     }
   }
 
-  onFieldChange = (event) => {
-    const updateState = {};
-    updateState['text'] = event.target.value;
-    this.setState(updateState)
-  }
-
-  getEmoji = (event) => {
-    const updateState = {};
-    updateState['emoji'] = EMOJI_LIST[event.target.value]
-    this.setState(updateState)
-  }
-
   onFormSubmit = (event) => {
     event.preventDefault();
     console.log(this.state);
+    // this.props.addCardCallback(this.state);
+    this.clearForm();
+  }
+
+  onFieldChange = (event) => {
+    const fieldName = event.target.name;
+    const fieldValue = event.target.value;
+    const updateState = {};
+    updateState[fieldName] = fieldValue;
+    this.setState(updateState)
+  }
+
+  clearForm = () => {
+    this.setState({
+      text: '',
+      emoji: '',
+    })
   }
 
   render() {
@@ -46,20 +51,19 @@ class NewCardForm extends Component {
           />
           </div>
           <div>
-          <select name='emoji' onChange={this.getEmoji} className='new-card-form__form-select'>
-          <option disabled selected value>Add Emoji</option>
-          <option value={0}>None</option>
-          <option value={1}>😍</option>
-          <option value={2}>🍺</option>
-          <option value={3}>👏</option>
-          <option value={4}>💖</option>
-          <option value={5}>😻</option>
-          <option value={6}>🐶</option>
-        </select>
+            <select name='emoji' onChange={this.onFieldChange}
+            className='new-card-form__form-select' value={this.state.emoji}>
+              <option value={EMOJI_LIST[0]}>None</option>
+              <option value={EMOJI_LIST[1]}>😍</option>
+              <option value={EMOJI_LIST[2]}>🍺</option>
+              <option value={EMOJI_LIST[3]}>👏</option>
+              <option value={EMOJI_LIST[4]}>💖</option>
+              <option value={EMOJI_LIST[5]}>😻</option>
+              <option value={EMOJI_LIST[6]}>🐶</option>
+            </select>
         </div>
-      <input type='submit' value='Add Card' className='new-card-form__form-button' />
-      </div>
-
+          <input type='submit' value='Add Card' className='new-card-form__form-button' />
+        </div>
       </form>
     )
   }

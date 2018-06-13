@@ -46,6 +46,10 @@ class Board extends Component {
     });
   }
 
+  addCard = (card) => {
+    const cardList = this.state.cards;
+  }
+
   renderCardList = () => {
     // For data from json file
     // const cardList = CARD_DATA.cards.map((card, index) => {
@@ -75,7 +79,9 @@ class Board extends Component {
         {this.renderCardList()}
       </div>
       <div>
-        <NewCardForm />
+        <NewCardForm
+          addCardCallback={this.addCard}
+        />
       </div>
       </div>
     )
