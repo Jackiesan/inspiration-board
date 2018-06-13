@@ -48,6 +48,19 @@ class Board extends Component {
 
   addCard = (card) => {
     const cardList = this.state.cards;
+    axios.post(`https://inspiration-board.herokuapp.com/boards/jackie/cards/`, card)
+    .then((response) => {
+      const newCard = { card: response.data.card }
+      cardList.unshift(newCard);
+      this.setState({
+        cardList,
+        message: `Successfully Added Card`
+      });
+    })
+    .catch((error) => {
+      console.log(error.message);
+      this.setState({ error: error.message });
+    });
   }
 
   renderCardList = () => {
@@ -66,7 +79,7 @@ class Board extends Component {
         />
       )
     });
-    return cardList;
+    return cardList.reverse();
   }
 
   render() {

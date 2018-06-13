@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import emoji from 'emoji-dictionary';
 import './NewCardForm.css';
 
 const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
@@ -17,7 +16,7 @@ class NewCardForm extends Component {
   onFormSubmit = (event) => {
     event.preventDefault();
     console.log(this.state);
-    // this.props.addCardCallback(this.state);
+    this.props.addCardCallback(this.state);
     this.clearForm();
   }
 
@@ -41,7 +40,6 @@ class NewCardForm extends Component {
       <form onSubmit={this.onFormSubmit} className='new-card-form'>
         <header className='new-card-form__header'><h1>Add a note</h1></header>
         <div className='new-card-form__form'>
-          <div>
           <label htmlFor='text' className='new-card-form__form-label'>Text: </label>
           <textarea
           name='text'
@@ -49,10 +47,10 @@ class NewCardForm extends Component {
           onChange={this.onFieldChange}
           className='new-card-form__form-textarea'
           />
-          </div>
-          <div>
-            <select name='emoji' onChange={this.onFieldChange}
-            className='new-card-form__form-select' value={this.state.emoji}>
+          <select name='emoji'  onChange={this.onFieldChange}
+          value={this.state.emoji}
+          className='new-card-form__form-select' >
+              <option value=''>Add Emoji</option>
               <option value={EMOJI_LIST[0]}>None</option>
               <option value={EMOJI_LIST[1]}>😍</option>
               <option value={EMOJI_LIST[2]}>🍺</option>
@@ -61,12 +59,16 @@ class NewCardForm extends Component {
               <option value={EMOJI_LIST[5]}>😻</option>
               <option value={EMOJI_LIST[6]}>🐶</option>
             </select>
-        </div>
           <input type='submit' value='Add Card' className='new-card-form__form-button' />
         </div>
       </form>
     )
   }
 }
+
+NewCardForm.propTypes = {
+  addCardCallback: PropTypes.func.isRequired,
+};
+
 
 export default NewCardForm;
