@@ -5,10 +5,11 @@ import './App.css';
 
 const Drawer = styled.div`
 position: absolute;
-height: 90%;
+height: 50%;
 background: black;
 width: 40vh;
 left: ${props => props.left}vh;
+z-index: 1000 !important;
 `;
 
 const Link = styled.div`
@@ -26,7 +27,6 @@ class Hamburger extends Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.selectedBoard = this.selectedBoard.bind(this);
-
   }
 
   handleClick = () => {
@@ -37,7 +37,7 @@ class Hamburger extends Component {
   }
 
   selectedBoard = (event) => {
-    this.props.switchBoard(event.target.getAttribute('name'))
+    this.props.switchBoard(event.target.getAttribute('name'), event.target.getAttribute('value'))
     this.handleClick();
   }
 
@@ -64,8 +64,8 @@ class Hamburger extends Component {
       >
       {style => (
         <Drawer left={style.left} onClick={this.selectedBoard}>
-        <Link name='jackie'>Inspiration Board</Link>
-        <Link name='jackie-todo'>To Do List</Link>
+          <Link name='jackie' value="Inspiration Board">Inspiration Board</Link>
+          <Link name='jackie-todo' value="To Do List">To Do List</Link>
         </Drawer>
       )}
       </Motion>

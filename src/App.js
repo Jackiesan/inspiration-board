@@ -9,13 +9,15 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      selectedBoardName: 'jackie'
+      selectedBoardName: 'jackie',
+      displayName: 'Inspiration Board'
     };
   }
 
-  selectedBoard = (boardName) => {
+  selectedBoard = (boardName, displayName) => {
     this.setState({
-      selectedBoardName: boardName
+      selectedBoardName: boardName,
+      displayName: displayName,
     })
   }
 
@@ -31,6 +33,7 @@ class App extends Component {
         <Board
           url="https://inspiration-board.herokuapp.com/boards/"
           boardName={this.state.selectedBoardName}
+          displayName={this.state.displayName}
           />
       </section>
     );

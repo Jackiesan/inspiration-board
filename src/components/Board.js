@@ -27,8 +27,8 @@ class Board extends Component {
     });
   }
 
-  componentDidUpdate = () => {
-    axios.get(`${this.props.url}${this.props.boardName}/cards`)
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
+    axios.get(`${this.props.url}${nextProps.boardName}/cards`)
     .then( (response) => {
       this.setState({ cards: response.data });
     })
@@ -77,12 +77,12 @@ class Board extends Component {
     const cardList = this.state.cards.map((card, index) => {
       return (
         <Card
-          key={index}
-          index={index}
-          id={card.card.id}
-          text={card.card.text}
-          emoji={card.card.emoji}
-          removeCard={this.removeCard}
+        key={index}
+        index={index}
+        id={card.card.id}
+        text={card.card.text}
+        emoji={card.card.emoji}
+        removeCard={this.removeCard}
         />
       )
     });
@@ -93,15 +93,15 @@ class Board extends Component {
     return (
       <div>
       <header> {this.state.message ? this.state.message: ""} </header>
-
+      <header className='board-name__header'><h1>{this.props.displayName}</h1></header>
       <div className="board">
-        <p>{this.state.error}</p>
-        {this.renderCardList()}
+      <p>{this.state.error}</p>
+      {this.renderCardList()}
       </div>
       <div>
-        <NewCardForm
-          addCardCallback={this.addCard}
-        />
+      <NewCardForm
+      addCardCallback={this.addCard}
+      />
       </div>
       </div>
     )
