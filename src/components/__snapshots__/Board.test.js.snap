@@ -1,9 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Board that it matches an existing snapshot 1`] = `
-<div
-  className="board"
->
-  <p />
+<div>
+  <header>
+     
+     
+  </header>
+  <div
+    className="board"
+  >
+    <p />
+  </div>
+  <div>
+    <NewCardForm
+      addCardCallback={[Function]}
+    />
+  </div>
 </div>
 `;
