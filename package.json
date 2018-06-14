@@ -7,7 +7,10 @@
     "emoji-dictionary": "^1.0.9",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-scripts": "1.1.4"
+    "react-motion": "^0.5.2",
+    "react-onclickoutside": "^6.7.1",
+    "react-scripts": "1.1.4",
+    "styled-components": "^3.3.2"
   },
   "scripts": {
     "predeploy": "npm run build",

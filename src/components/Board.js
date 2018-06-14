@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
@@ -19,9 +18,18 @@ class Board extends Component {
   }
 
   componentDidMount = () => {
-    axios.get('https://inspiration-board.herokuapp.com/boards/jackie/cards')
+    axios.get(`${this.props.url}${this.props.boardName}/cards`)
     .then( (response) => {
-      console.log(response);
+      this.setState({ cards: response.data });
+    })
+    .catch( (error) => {
+      this.setState({ error: error.message });
+    });
+  }
+
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
+    axios.get(`${this.props.url}${nextProps.boardName}/cards`)
+    .then( (response) => {
       this.setState({ cards: response.data });
     })
     .catch( (error) => {
@@ -31,8 +39,7 @@ class Board extends Component {
 
   removeCard = (id, index) => {
     const cardList = this.state.cards;
-
-    axios.delete(`https://inspiration-board.herokuapp.com/boards/jackie/cards/${id}`)
+    axios.delete(`${this.props.url}${this.props.boardName}/cards/${id}`)
     .then((response) => {
       console.log(response);
       cardList.splice(index, 1);
@@ -48,7 +55,7 @@ class Board extends Component {
 
   addCard = (card) => {
     const cardList = this.state.cards;
-    axios.post(`https://inspiration-board.herokuapp.com/boards/jackie/cards/`, card)
+    axios.post(`${this.props.url}${this.props.boardName}/cards/`, card)
     .then((response) => {
       const newCard = { card: response.data.card }
       cardList.unshift(newCard);
@@ -70,12 +77,12 @@ class Board extends Component {
     const cardList = this.state.cards.map((card, index) => {
       return (
         <Card
-          key={index}
-          index={index}
-          id={card.card.id}
-          text={card.card.text}
-          emoji={card.card.emoji}
-          removeCard={this.removeCard}
+        key={index}
+        index={index}
+        id={card.card.id}
+        text={card.card.text}
+        emoji={card.card.emoji}
+        removeCard={this.removeCard}
         />
       )
     });
@@ -86,15 +93,15 @@ class Board extends Component {
     return (
       <div>
       <header> {this.state.message ? this.state.message: ""} </header>
-
+      <header className='board-name__header'><h1>{this.props.displayName}</h1></header>
       <div className="board">
-        <p>{this.state.error}</p>
-        {this.renderCardList()}
+      <p>{this.state.error}</p>
+      {this.renderCardList()}
       </div>
       <div>
-        <NewCardForm
-          addCardCallback={this.addCard}
-        />
+      <NewCardForm
+      addCardCallback={this.addCard}
+      />
       </div>
       </div>
     )
