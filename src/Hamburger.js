@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Motion, spring } from 'react-motion';
 import './App.css';
-import onClickOutside from 'react-onclickoutside'
 
 
 const Drawer = styled.div`
@@ -44,11 +43,6 @@ class Hamburger extends Component {
     this.handleClick();
   }
 
-  handleClickOutside = () => {
-    this.handleClick();
-  }
-
-
   render() {
     return (
       <div id="parent">
@@ -81,4 +75,4 @@ class Hamburger extends Component {
     );
   }
 }
-export default onClickOutside(Hamburger);
+export default Hamburger;
