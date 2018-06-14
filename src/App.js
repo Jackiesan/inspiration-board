@@ -5,6 +5,7 @@ import Board from './components/Board';
 import Hamburger from './Hamburger';
 
 
+
 class App extends Component {
   constructor() {
     super();
@@ -23,7 +24,7 @@ class App extends Component {
 
   render() {
     return (
-      <section>
+      <div>
           <Hamburger
             switchBoard={this.selectedBoard}
           />
@@ -35,7 +36,7 @@ class App extends Component {
           boardName={this.state.selectedBoardName}
           displayName={this.state.displayName}
           />
-      </section>
+      </div>
     );
   }
 }

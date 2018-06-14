@@ -9,7 +9,6 @@ height: 50%;
 background: black;
 width: 40vh;
 left: ${props => props.left}vh;
-z-index: 1000 !important;
 `;
 
 const Link = styled.div`
