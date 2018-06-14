@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App that it renders App with shallow rendering 1`] = `
-<section>
+<div>
+  <Hamburger
+    switchBoard={[Function]}
+  />
   <header
     className="header"
   >
@@ -16,8 +19,9 @@ exports[`App that it renders App with shallow rendering 1`] = `
     </h1>
   </header>
   <Board
-    boardName="Ada-Lovelace"
+    boardName="jackie"
+    displayName="Inspiration Board"
     url="https://inspiration-board.herokuapp.com/boards/"
   />
-</section>
+</div>
 `;
