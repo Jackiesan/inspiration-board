@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Motion, spring } from 'react-motion';
 import './App.css';
+import onClickOutside from 'react-onclickoutside'
+
 
 const Drawer = styled.div`
 position: absolute;
-height: 50%;
+height: auto;
 background: black;
 width: 40vh;
 left: ${props => props.left}vh;
+z-index: 1;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
 `;
 
 const Link = styled.div`
@@ -40,6 +44,11 @@ class Hamburger extends Component {
     this.handleClick();
   }
 
+  handleClickOutside = () => {
+    this.handleClick();
+  }
+
+
   render() {
     return (
       <div id="parent">
@@ -62,9 +71,9 @@ class Hamburger extends Component {
       }}
       >
       {style => (
-        <Drawer left={style.left} onClick={this.selectedBoard}>
-          <Link name='jackie' value="Inspiration Board">Inspiration Board</Link>
-          <Link name='jackie-todo' value="To Do List">To Do List</Link>
+        <Drawer left={style.left} onClick={this.selectedBoard} >
+        <Link name='jackie' value="Inspiration Board">Inspiration Board</Link>
+        <Link name='jackie-todo' value="To Do List">To Do List</Link>
         </Drawer>
       )}
       </Motion>
@@ -72,5 +81,4 @@ class Hamburger extends Component {
     );
   }
 }
-
-export default Hamburger;
+export default onClickOutside(Hamburger);
