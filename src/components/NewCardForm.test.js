@@ -22,6 +22,20 @@ describe('NewCardForm', () => {
     expect(textField.getElement().props.value).toEqual('this is a test note');
   });
 
+  test('when a user selects an emoji in the select dropdown the field is updated', () => {
+    const wrapper = shallow(<NewCardForm addCardCallback={ ()=> {} }/>);
+    let emojiDropdown = wrapper.find('select')
+    emojiDropdown.simulate('change', {
+      target: {
+        name: 'emoji',
+        value: 'beer',
+      },
+    });
+    wrapper.update();
+    emojiDropdown = wrapper.find('select')
+    expect(emojiDropdown.getElement().props.value).toEqual('beer');
+  })
+
   test('NewCardForm can submit', () => {
     const mockAddCardCallback = jest.fn();
     const wrapper = shallow(<NewCardForm addCardCallback={ mockAddCardCallback } />);
@@ -29,6 +43,13 @@ describe('NewCardForm', () => {
       target: {
         name: 'text',
         value: 'adding message',
+      }
+    });
+    wrapper.update();
+    wrapper.find('select').simulate('change', {
+      target: {
+        name: 'emoji',
+        value: 'beer',
       }
     });
     wrapper.update();
@@ -41,7 +62,7 @@ describe('NewCardForm', () => {
     expect(mockAddCardCallback).toHaveBeenCalled();
     expect(mockAddCardCallback.mock.calls[0][0]).toEqual({
       text: 'adding message',
-      emoji: '',
+      emoji: 'beer',
     });
   });
 });
